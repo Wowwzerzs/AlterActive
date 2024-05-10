@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import {
   Navbar,
@@ -225,3 +226,4 @@ export function MegaMenuDefault() {
     </Navbar>
   );
 }
+
