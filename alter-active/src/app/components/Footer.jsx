@@ -9,7 +9,7 @@ function Footer() {
           <div className="flex flex-wrap items-center md:justify-between justify-center">
             <div className="w-full md:w-4/12 px-4">
               <div className="text-center mb-2 md:text-left md:mb-0">
-                <span className="text-sm text-blueGray-500 font-semibold py-1 text-center md:text-left">
+                <span className="text-sm text-black font-semibold py-1 text-center md:text-left">
                   Copyright © 2024 Alter Active
                 </span>
               </div>
@@ -20,7 +20,7 @@ function Footer() {
                   <a
                     // href="https://www.creative-tim.com?ref=npr-footeradmin" Change this
                     target="_blank"
-                    className="text-blueGray-700 hover:text-blueGray-900 text-sm font-semibold block py-1 px-3"
+                    className="text-black hover:text-blueGray-900 text-sm font-semibold block py-1 px-3"
                   >
                     Contact Us
                   </a>
@@ -29,7 +29,7 @@ function Footer() {
                   <a
                     // href="https://www.creative-tim.com/presentation?ref=npr-footeradmin" change this
                     target="_blank"
-                    className="text-blueGray-700 hover:text-blueGray-900 text-sm font-semibold block py-1 px-3"
+                    className="text-black hover:text-blueGray-900 text-sm font-semibold block py-1 px-3"
                   >
                     About Us
                   </a>
@@ -38,7 +38,7 @@ function Footer() {
                   <a
                     // href="https://www.creative-tim.com/license?ref=npr-footeradmin" Change this 
                     target="_blank"
-                    className="text-blueGray-700 hover:text-blueGray-900 text-sm font-semibold block py-1 px-3"
+                    className="text-black hover:text-blueGray-900 text-sm font-semibold block py-1 px-3"
                   >
                     Licenses
                   </a>
