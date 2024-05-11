@@ -2,15 +2,6 @@ import React from 'react';
 
 
 
-
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-</svg>
-
-
-
-
 function Contact() {
   return (
     <div>
@@ -27,7 +18,20 @@ function Contact() {
                   </div>
                 </div>
                 <div className="rounded text-left p-6 flex items-start">
-                  <div className="bg-white rounded-full justify-center items-center inline-flex text-center w-12 h-12 text-blueGray-700"><i className="fas fa-map-marker-alt"></i></div>
+                <div className="bg-gray-200 rounded-full justify-center items-center inline-flex text-center w-12 h-12 text-blueGray-700">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-6 h-6"
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+  </svg>
+</div>
+
+
                   <div className="ml-6 flex-1">
                     <h4 className="text-black text-2xl font-semibold leading-tight mt-2 mb-2">Find us at the office</h4>
                     <p className="text-black opacity-60">Alter Active Inc.</p>
@@ -36,7 +40,19 @@ function Contact() {
                   </div>
                 </div>
                 <div className="rounded text-left p-6 flex items-start">
-                  <div className="bg-white rounded-full justify-center items-center inline-flex text-center w-12 h-12 text-blueGray-700"><i className="fas fa-mobile"></i></div>
+                <div className="bg-gray-200 rounded-full justify-center items-center inline-flex text-center w-12 h-12 text-blueGray-700">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-6 h-6"
+  >
+    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+  </svg>
+</div>
+
                   <div className="ml-6 flex-1">
                     <h4 className="text-black text-2xl font-semibold leading-tight mt-2 mb-2">Give us a ring</h4>
                     <p className="text-black opacity-60">+1 (123) 456-7890</p>
