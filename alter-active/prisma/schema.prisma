@@ -9,29 +9,29 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Users {
   id            Int       @id @default(autoincrement())
   email         String    @unique
-  firstName     String
-  lastName      String
   password      String
   createdAt     DateTime  @default(now())
   exercises     Exercises[]
   exercise_logs Exercise_logs[]
   user_goals    User_goals[]
+  @@map("users")
 }
 
 model Exercises {
   id            Int      @id @default(autoincrement())
   name          String
-  description   String
+  muscleGroup   String
   createdAt     DateTime @default(now())
   exercise_logs Exercise_logs[]
   users         Users[]
+  @@map("exercises")
 }
 
 model Exercise_logs {
@@ -45,6 +45,7 @@ model Exercise_logs {
   weightUsed  Int
   duration    Int
   createdAt   DateTime  @default(now())
+  @@map("exercise_logs")
 }
 
 model User_goals {
@@ -53,4 +54,5 @@ model User_goals {
   userId      Int
   goal        String
   createdAt   DateTime  @default(now())
+  @@map("user_goals")
 }
