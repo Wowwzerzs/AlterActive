@@ -1,26 +1,18 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import TextInput from "./TextInput";
 import Button from "./Button";
 
-// Styled component with Tailwind CSS classes
-const Card = styled.div`
-  @apply flex-1 min-w-280px p-4 border border-primary-20 rounded-lg shadow-md flex flex-col gap-4;
-  @media (max-width: 600px) {
-    padding: 16px;
-  }
-`;
-const Title = styled.div`
-  @apply font-semibold text-primary text-lg md:text-xl;
-  @media (max-width: 600px) {
-    font-size: 14px;
-  }
-`;
+// Define the light theme directly in the file
+const lightTheme = {
+  primary: "#007AFF",
+  text_primary: "#404040",
+};
 
 const AddWorkout = ({ workout, setWorkout, addNewWorkout, buttonLoading }) => {
   return (
-    <Card>
-      <Title>Add New Workout</Title>
+    <div className="flex-1 min-w-280px p-4 border border-primary-20 rounded-lg shadow-md flex flex-col gap-4">Add Workout
+    
+      <div className="font-semibold text-black text-lg md:text-xl">Add New Workout</div>
       <TextInput
         label="Workout"
         textArea
@@ -35,15 +27,16 @@ const AddWorkout = ({ workout, setWorkout, addNewWorkout, buttonLoading }) => {
 -Duration`}
         value={workout}
         handelChange={(e) => setWorkout(e.target.value)}
+        labelClassName="text-black" // Apply text-black class to the label
       />
       <Button
         text="Add Workout"
         small
-        onClick={() => addNewWorkout()}
+        onClick={() => addNewWorkout()} // Ensure addNewWorkout is a function
         isLoading={buttonLoading}
         isDisabled={buttonLoading}
       />
-    </Card>
+    </div>
   );
 };
 
