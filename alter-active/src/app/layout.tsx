@@ -5,7 +5,6 @@ import "./globals.css";
 import Footer from "./components/Footer";
 import { MegaMenuDefault } from "./components/Navbar"
 import { ThemeProvider } from "@material-tailwind/react";
-import AddWorkout from "./components/AddWorkout"
 
 
 
@@ -27,8 +26,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider>
         <MegaMenuDefault />
-        <AddWorkout />
-        {children}
+        <main>
+          {children}
+          </main>
       <Footer />
     </ ThemeProvider >
 
