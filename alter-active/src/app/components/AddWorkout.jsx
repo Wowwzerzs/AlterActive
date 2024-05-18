@@ -88,7 +88,7 @@ const AddWorkout = () => {
                 <input
                   type="number"
                   id={`sets-${index}`}
-                  className="w-full p-2 border rounded"
+                  className="w-full p-2 border rounded bg-white text-gray-900"
                   value={sets[index]}
                   onChange={(e) => handleSetChange(index, e.target.value)}
                 />
@@ -98,7 +98,7 @@ const AddWorkout = () => {
                 <input
                   type="number"
                   id={`reps-${index}`}
-                  className="w-full p-2 border rounded"
+                  className="w-full p-2 border rounded bg-white text-gray-900"
                   value={reps[index]}
                   onChange={(e) => handleRepChange(index, e.target.value)}
                 />
@@ -108,7 +108,7 @@ const AddWorkout = () => {
                 <input
                   type="number"
                   id={`weights-${index}`}
-                  className="w-full p-2 border rounded"
+                  className="w-full p-2 border rounded bg-white text-gray-900"
                   value={weights[index]}
                   onChange={(e) => handleWeightChange(index, e.target.value)}
                 />
@@ -116,18 +116,20 @@ const AddWorkout = () => {
             </div>
           </div>
         ))}
-        <button
-          className="bg-green-500 text-white p-2 rounded hover:bg-green-600 mb-4"
-          onClick={addSet}
-        >
-          Add Set
-        </button>
-        <button
-          className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-          onClick={handleAddWorkout}
-        >
-          Add Workout
-        </button>
+        <div className="flex space-x-4">
+          <button
+            className="bg-green-500 text-white p-2 rounded hover:bg-green-600"
+            onClick={addSet}
+          >
+            Add Set
+          </button>
+          <button
+            className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+            onClick={handleAddWorkout}
+          >
+            Add Workout
+          </button>
+        </div>
       </div>
       <div className="mt-6">
         <h2 className="text-2xl font-bold mb-4">Workout Cards</h2>
