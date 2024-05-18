@@ -1,13 +1,19 @@
-import React from 'react'
-// import CategoryChart from "./components/cards/CategoryChart"
-import AddWorkout from "../components/AddWorkout"
+"use client"
+import React, { useState } from 'react';
+import AddWorkout from '../components/AddWorkout';
+import WorkoutCardContainer from '../components/WorkoutCardContainer';
 
 function Dashboard() {
+  // Define workoutCards state
+  const [workoutCards, setWorkoutCards] = useState([]);
+
   return (
     <div className='bg-black'>
-     <AddWorkout />
+      <AddWorkout setWorkoutCards={setWorkoutCards} />
+      <WorkoutCardContainer workoutCards={workoutCards} />
     </div>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;
+

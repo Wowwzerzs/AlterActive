@@ -1,7 +1,6 @@
-// components/AddWorkout.js
-"use client";
 import { useState, useEffect } from "react";
-import WorkoutCard from './cards/WorkoutCard'; // Import the WorkoutCard component
+import WorkoutCard from './cards/WorkoutCard'; 
+import WorkoutCardContainer from "./WorkoutCardContainer";
 
 const AddWorkout = () => {
   const [workouts, setWorkouts] = useState([]);
@@ -132,17 +131,10 @@ const AddWorkout = () => {
         </div>
       </div>
       <div className="mt-6">
-        <h2 className="text-2xl font-bold mb-4">Workout Cards</h2>
-        {workoutCards.map((card, index) => (
-          <WorkoutCard 
-            key={index} 
-            workout={card.workout} 
-            sets={card.sets} 
-            reps={card.reps} 
-            weights={card.weights} 
-          />
-        ))}
-      </div>
+  <h2 className="text-2xl font-bold mb-4">Workout Cards</h2>
+  <WorkoutCardContainer workoutCards={workoutCards} />
+</div>
+
     </div>
   );
 };

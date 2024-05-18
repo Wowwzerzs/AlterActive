@@ -1,5 +1,3 @@
-// components/WorkoutCard.js
-"use client";
 import React from 'react';
 
 const WorkoutCard = ({ workout, sets, reps, weights }) => {
@@ -14,15 +12,15 @@ const WorkoutCard = ({ workout, sets, reps, weights }) => {
       <h3 className="text-xl font-semibold text-gray-900 mb-3 roboto-font">{workout}</h3>
       <div className="flex flex-col space-y-1 roboto-font">
         <div className="flex justify-between text-md text-gray-600">
-          <div className="font-medium">Set</div>
-          <div className="font-medium">Reps</div>
-          <div className="font-medium">Weight (lbs)</div>
+          <div className="font-medium px-2">Set</div>
+          <div className="font-medium px-2">Reps</div>
+          <div className="font-medium px-2">Weight (lbs)</div>
         </div>
         {sets.map((set, index) => (
           <div key={index} className="flex justify-between text-md text-gray-800">
-            <div>{index + 1}</div>
-            <div>{reps[index]}</div>
-            <div>{weights[index]}</div>
+            <div className="px-2">{index + 1}</div>
+            <div className="px-2">{reps[index]}</div>
+            <div className="px-2">{weights[index]}</div>
           </div>
         ))}
       </div>
