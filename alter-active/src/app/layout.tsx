@@ -20,7 +20,9 @@ export default function RootLayout({
         <SessionProvider>
           <ThemeProvider>
             <MegaMenuDefault />
-            {children}
+            <main>
+          {children}
+          </main>
             <Footer />
           </ThemeProvider>
         </SessionProvider>
