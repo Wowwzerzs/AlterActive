@@ -1,41 +1,146 @@
-import React, { useState } from "react";
-import TextInput from "./TextInput";
-import Button from "./Button";
+// components/AddWorkout.js
+"use client";
+import { useState, useEffect } from "react";
+import WorkoutCard from './cards/WorkoutCard'; // Import the WorkoutCard component
 
-// Define the light theme directly in the file
-const lightTheme = {
-  primary: "#007AFF",
-  text_primary: "#404040",
-};
+const AddWorkout = () => {
+  const [workouts, setWorkouts] = useState([]);
+  const [selectedWorkout, setSelectedWorkout] = useState("");
+  const [sets, setSets] = useState([""]);
+  const [reps, setReps] = useState([""]);
+  const [weights, setWeights] = useState([""]);
+  const [workoutCards, setWorkoutCards] = useState([]);
 
-const AddWorkout = ({ workout, setWorkout, addNewWorkout, buttonLoading }) => {
+  // Fetch workouts from the API
+  useEffect(() => {
+    const fetchWorkouts = async () => {
+      const res = await fetch("/api/workouts");
+      const data = await res.json();
+      setWorkouts(data);
+    };
+    fetchWorkouts();
+  }, []);
+
+  const handleSetChange = (index, value) => {
+    const newSets = [...sets];
+    newSets[index] = value;
+    setSets(newSets);
+  };
+
+  const handleRepChange = (index, value) => {
+    const newReps = [...reps];
+    newReps[index] = value;
+    setReps(newReps);
+  };
+
+  const handleWeightChange = (index, value) => {
+    const newWeights = [...weights];
+    newWeights[index] = value;
+    setWeights(newWeights);
+  };
+
+  const addSet = () => {
+    setSets([...sets, ""]);
+    setReps([...reps, ""]);
+    setWeights([...weights, ""]);
+  };
+
+  const handleAddWorkout = () => {
+    const newWorkout = {
+      workout: selectedWorkout,
+      sets,
+      reps,
+      weights,
+    };
+    setWorkoutCards([...workoutCards, newWorkout]);
+    // Clear the form fields
+    setSelectedWorkout("");
+    setSets([""]);
+    setReps([""]);
+    setWeights([""]);
+  };
+
   return (
-    <div className="flex-1 min-w-280px p-4 border border-primary-20 rounded-lg shadow-md flex flex-col gap-4">Add Workout
-    
-      <div className="font-semibold text-black text-lg md:text-xl">Add New Workout</div>
-      <TextInput
-        label="Workout"
-        textArea
-        rows={10}
-        placeholder={`Enter in this format:
-
-#Category
--Workout Name
--Sets
--Reps
--Weight
--Duration`}
-        value={workout}
-        handelChange={(e) => setWorkout(e.target.value)}
-        labelClassName="text-black" // Apply text-black class to the label
-      />
-      <Button
-        text="Add Workout"
-        small
-        onClick={() => addNewWorkout()} // Ensure addNewWorkout is a function
-        isLoading={buttonLoading}
-        isDisabled={buttonLoading}
-      />
+    <div className="container mx-auto p-4">
+      <div className="bg-white p-6 rounded shadow-md">
+        <h2 className="text-2xl font-bold mb-4">Add Workout</h2>
+        <div className="mb-4">
+          <label htmlFor="workout" className="block text-gray-700 mb-2">Select Workout</label>
+          <select
+            id="workout"
+            className="w-full p-2 border rounded"
+            value={selectedWorkout}
+            onChange={(e) => setSelectedWorkout(e.target.value)}
+          >
+            <option value="" disabled>Select a workout</option>
+            {workouts.map((workout) => (
+              <option key={workout.id} value={workout.name}>
+                {workout.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        {sets.map((set, index) => (
+          <div key={index} className="mb-4">
+            <div className="flex space-x-4">
+              <div className="flex-1">
+                <label htmlFor={`sets-${index}`} className="block text-gray-700 mb-2">Sets</label>
+                <input
+                  type="number"
+                  id={`sets-${index}`}
+                  className="w-full p-2 border rounded"
+                  value={sets[index]}
+                  onChange={(e) => handleSetChange(index, e.target.value)}
+                />
+              </div>
+              <div className="flex-1">
+                <label htmlFor={`reps-${index}`} className="block text-gray-700 mb-2">Reps</label>
+                <input
+                  type="number"
+                  id={`reps-${index}`}
+                  className="w-full p-2 border rounded"
+                  value={reps[index]}
+                  onChange={(e) => handleRepChange(index, e.target.value)}
+                />
+              </div>
+              <div className="flex-1">
+                <label htmlFor={`weights-${index}`} className="block text-gray-700 mb-2">Weight (lbs)</label>
+                <input
+                  type="number"
+                  id={`weights-${index}`}
+                  className="w-full p-2 border rounded"
+                  value={weights[index]}
+                  onChange={(e) => handleWeightChange(index, e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+        ))}
+        <button
+          className="bg-green-500 text-white p-2 rounded hover:bg-green-600 mb-4"
+          onClick={addSet}
+        >
+          Add Set
+        </button>
+        <button
+          className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+          onClick={handleAddWorkout}
+        >
+          Add Workout
+        </button>
+      </div>
+      <div className="mt-6">
+        <h2 className="text-2xl font-bold mb-4">Workout Cards</h2>
+        {workoutCards.map((card, index) => (
+          <WorkoutCard 
+            key={index} 
+            workout={card.workout} 
+            sets={card.sets} 
+            reps={card.reps} 
+            weights={card.weights} 
+          />
+        ))}
+      </div>
     </div>
   );
 };
