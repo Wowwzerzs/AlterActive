@@ -1,20 +1,8 @@
-// import { getServerSession } from "next-auth/next";
-
-// export default function App({
-//  },
-// ) {
-//   return (
-//     <getServerSession session={session}>
-//       <Component {...pageProps} />
-//     </getServerSession>
-//   );
-// }
-
-
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "./api/auth/[...nextauth]/route"
+import link from "next/link";
+import AuthPage from "./auth/page";
 
 export default async function Page() {
-  const session = await getServerSession(authOptions)
-  return <pre>{JSON.stringify(session, null, 2)}</pre>
+  return (
+      <AuthPage />
+    ); 
 }
