@@ -5,7 +5,7 @@ import WorkoutCardContainer from "./WorkoutCardContainer";
 const AddWorkout = () => {
   const [workouts, setWorkouts] = useState([]);
   const [selectedWorkout, setSelectedWorkout] = useState("");
-  const [sets, setSets] = useState([""]);
+  const [sets, setSets] = useState(["1"]);
   const [reps, setReps] = useState([""]);
   const [weights, setWeights] = useState([""]);
   const [workoutCards, setWorkoutCards] = useState([]);
@@ -39,7 +39,8 @@ const AddWorkout = () => {
   };
 
   const addSet = () => {
-    setSets([...sets, ""]);
+    const nextSetNumber = sets.length + 1;
+    setSets([...sets, nextSetNumber.toString()]);
     setReps([...reps, ""]);
     setWeights([...weights, ""]);
   };
@@ -54,7 +55,7 @@ const AddWorkout = () => {
     setWorkoutCards([...workoutCards, newWorkout]);
     // Clear the form fields
     setSelectedWorkout("");
-    setSets([""]);
+    setSets(["1"]);
     setReps([""]);
     setWeights([""]);
   };
@@ -131,10 +132,9 @@ const AddWorkout = () => {
         </div>
       </div>
       <div className="mt-6">
-  <h2 className="text-2xl font-bold mb-4">Workout Cards</h2>
-  <WorkoutCardContainer workoutCards={workoutCards} />
-</div>
-
+        <h2 className="text-2xl font-bold mb-4">Workout Cards</h2>
+        <WorkoutCardContainer workoutCards={workoutCards} />
+      </div>
     </div>
   );
 };
