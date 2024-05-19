@@ -3,8 +3,10 @@ import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
-export async function GET(req, res) {
-  const { email, password } = req.body;
+export async function POST(request) {
+  const formData = await request.formData();
+  const email = formData.get("email");
+  const password = formData.get("password");
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -16,9 +18,8 @@ export async function GET(req, res) {
       },
     });
 
-    res.status(200).json({ id: user.id, email: user.email });
+    return Response.json({ id: user.id, email: user.email });
   } catch (error) {
-    console.log("error -->", error);
-    res.status(400).json({ error });
+    return Response.json({ error: "Something went wrong" });
   }
 }
