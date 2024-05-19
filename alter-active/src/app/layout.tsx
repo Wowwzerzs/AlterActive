@@ -19,10 +19,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <SessionProvider>
           <ThemeProvider>
-            <MegaMenuDefault />
-            <main>
-          {children}
-          </main>
+            <main>{children}</main>
             <Footer />
           </ThemeProvider>
         </SessionProvider>
