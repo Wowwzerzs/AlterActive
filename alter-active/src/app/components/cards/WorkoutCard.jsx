@@ -36,7 +36,7 @@ const WorkoutCard = ({ workout, sets, reps, weights, onUpdate, onDelete }) => {
   };
 
   return (
-    <div className="bg-white p-3 rounded-lg shadow-lg mb-3 max-w-md mx-auto">
+    <div className="bg-white p-3 rounded-lg shadow-lg mb-3 max-w-md mx-auto text-black">
       <h3 className="text-xl font-semibold text-gray-900 mb-3">{workout}</h3>
       {isEditing ? (
         <div className="mt-3">
