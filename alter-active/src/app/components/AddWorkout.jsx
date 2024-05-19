@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import WorkoutCard from './cards/WorkoutCard'; 
+import WorkoutCard from "./cards/WorkoutCard";
 import WorkoutCardContainer from "./WorkoutCardContainer";
 
 const AddWorkout = () => {
@@ -10,13 +10,18 @@ const AddWorkout = () => {
   const [weights, setWeights] = useState([""]);
   const [workoutCards, setWorkoutCards] = useState([]);
 
-  // Fetch workouts from the API
-  useEffect(() => {
-    const fetchWorkouts = async () => {
-      const res = await fetch("/api/workouts");
-      const data = await res.json();
+  const fetchWorkouts = async () => {
+    const res = await fetch("/api/workouts/fetch");
+    const data = await res.json();
+
+    if (res.ok) {
       setWorkouts(data);
-    };
+    } else {
+      alert("Unable to fetch workouts.");
+    }
+  };
+
+  useEffect(() => {
     fetchWorkouts();
   }, []);
 
@@ -62,16 +67,20 @@ const AddWorkout = () => {
   return (
     <div className="container mx-auto p-4">
       <div className="bg-white p-6 rounded shadow-md">
-        <h2 className="text-2xl font-bold mb-4">Add Workout</h2>
+        <h2 className="text-2xl font-bold text-black mb-4">Add Workout</h2>
         <div className="mb-4">
-          <label htmlFor="workout" className="block text-gray-700 mb-2">Select Workout</label>
+          <label htmlFor="workout" className="block text-black mb-2">
+            Select Workout
+          </label>
           <select
             id="workout"
-            className="w-full p-2 border rounded"
+            className="w-full text-black p-2 border rounded"
             value={selectedWorkout}
             onChange={(e) => setSelectedWorkout(e.target.value)}
           >
-            <option value="" disabled>Select a workout</option>
+            <option value="" disabled>
+              Select a workout
+            </option>
             {workouts.map((workout) => (
               <option key={workout.id} value={workout.name}>
                 {workout.name}
@@ -83,7 +92,12 @@ const AddWorkout = () => {
           <div key={index} className="mb-4">
             <div className="flex space-x-4">
               <div className="flex-1">
-                <label htmlFor={`sets-${index}`} className="block text-gray-700 mb-2">Sets</label>
+                <label
+                  htmlFor={`sets-${index}`}
+                  className="block text-gray-700 mb-2"
+                >
+                  Sets
+                </label>
                 <input
                   type="number"
                   id={`sets-${index}`}
@@ -93,7 +107,12 @@ const AddWorkout = () => {
                 />
               </div>
               <div className="flex-1">
-                <label htmlFor={`reps-${index}`} className="block text-gray-700 mb-2">Reps</label>
+                <label
+                  htmlFor={`reps-${index}`}
+                  className="block text-gray-700 mb-2"
+                >
+                  Reps
+                </label>
                 <input
                   type="number"
                   id={`reps-${index}`}
@@ -103,7 +122,12 @@ const AddWorkout = () => {
                 />
               </div>
               <div className="flex-1">
-                <label htmlFor={`weights-${index}`} className="block text-gray-700 mb-2">Weight (lbs)</label>
+                <label
+                  htmlFor={`weights-${index}`}
+                  className="block text-gray-700 mb-2"
+                >
+                  Weight (lbs)
+                </label>
                 <input
                   type="number"
                   id={`weights-${index}`}
@@ -131,10 +155,9 @@ const AddWorkout = () => {
         </div>
       </div>
       <div className="mt-6">
-  <h2 className="text-2xl font-bold mb-4">Workout Cards</h2>
-  <WorkoutCardContainer workoutCards={workoutCards} />
-</div>
-
+        <h2 className="text-2xl font-bold mb-4">Workout Cards</h2>
+        <WorkoutCardContainer workoutCards={workoutCards} />
+      </div>
     </div>
   );
 };
