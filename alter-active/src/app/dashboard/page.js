@@ -1,15 +1,17 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { useSession } from "next-auth/react";
-import AddWorkout from "../components/AddWorkout"
-import WorkoutCardContainer from '../components/WorkoutCardContainer';
+import { MegaMenuDefault } from "../components/Navbar";
+import AddWorkout from "../components/AddWorkout";
+import WorkoutCardContainer from "../components/WorkoutCardContainer";
 
 function Dashboard() {
   // Define workoutCards state
   const [workoutCards, setWorkoutCards] = useState([]);
 
   return (
-    <div className='bg-black'>
+    <div className="bg-black">
+      <MegaMenuDefault />
       <AddWorkout setWorkoutCards={setWorkoutCards} />
       <WorkoutCardContainer workoutCards={workoutCards} />
     </div>
@@ -17,4 +19,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
