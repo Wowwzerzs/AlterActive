@@ -4,7 +4,7 @@ function Contact() {
   return (
     <div>
       <div className="w-full">
-        <div className="bg-blueGray-900 py-20" style={{ backgroundImage: "url('/backG.png')" }}>
+        <div className="bg-blueGray-900 py-20" >
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap -mx-4">
               <div className="mx-auto flex justify-center flex-col text-black px-4 relative lg:w-4/12 w-full md:w-5/12">
