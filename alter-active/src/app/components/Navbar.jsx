@@ -1,4 +1,3 @@
-"use client"
 import React from "react";
 import {
   Navbar,
@@ -30,7 +29,6 @@ import {
 } from "@heroicons/react/24/solid";
  
 const navListMenuItems = [
-  
   {
     title: "About Us",
     description: "Meet and learn about our dedication",
@@ -51,7 +49,6 @@ const navListMenuItems = [
     description: "Read insightful articles, tips, and expert opinions.",
     icon: NewspaperIcon,
   },
- 
 ];
  
 function NavListMenu() {
@@ -132,6 +129,15 @@ function NavListMenu() {
   );
 }
  
+function handleLogout() {
+  // Implement your logout logic here, such as clearing local storage, redirecting to the login page, etc.
+  // For demonstration purposes, let's assume we're just logging out the user by clearing local storage
+  localStorage.clear(); // Clearing all stored data
+
+  // Redirecting to the login page (you may need to adjust this based on your routing setup)
+  window.location.href = "/auth";
+}
+
 function NavList() {
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
@@ -155,6 +161,21 @@ function NavList() {
         <ListItem className="flex items-center gap-2 py-2 pr-4">
           Contact Us
         </ListItem>
+      </Typography>
+      <Typography
+        as="a"
+        href="#"
+        variant="small"
+        color="blue-gray"
+        className="font-medium"
+        onClick={handleLogout} // Attach the handleLogout function to onClick event
+      >
+        <img
+          width="48"
+          height="48"
+          src="https://img.icons8.com/pulsar-color/48/logout-rounded-up.png"
+          alt="logout-rounded-up"
+        />
       </Typography>
     </List>
   );
@@ -203,4 +224,3 @@ export function MegaMenuDefault() {
     </Navbar>
   );
 }
-
