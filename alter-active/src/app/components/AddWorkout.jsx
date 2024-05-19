@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import WorkoutCardContainer from "./WorkoutCardContainer";
+import Calendar from "./Calendar";
+import WorkoutLog from "./WorkoutLog";
+import WorkoutCard from "./cards/WorkoutCard";
 
 const AddWorkout = () => {
   const [workouts, setWorkouts] = useState([]);
@@ -9,13 +12,13 @@ const AddWorkout = () => {
   const [reps, setReps] = useState([""]);
   const [weights, setWeights] = useState([""]);
   const [workoutCards, setWorkoutCards] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
-  // Fetch workouts from the API
   useEffect(() => {
     const fetchWorkouts = async () => {
       const res = await fetch("/api/workouts");
       const data = await res.json();
-      setWorkouts(data);
+      setWorkouts(data || []);
     };
     fetchWorkouts();
   }, []);
@@ -51,10 +54,10 @@ const AddWorkout = () => {
       sets,
       reps,
       weights,
-      muscleGroup: selectedMuscleGroup // Include muscle group in the workout object
+      muscleGroup: selectedMuscleGroup,
+      date: selectedDate.toISOString().split('T')[0],
     };
     setWorkoutCards([...workoutCards, newWorkout]);
-    // Clear the form fields
     setSelectedMuscleGroup("");
     setSelectedWorkout("");
     setSets(["1"]);
@@ -64,7 +67,7 @@ const AddWorkout = () => {
 
   const handleDeleteWorkout = (index) => {
     const updatedWorkoutCards = [...workoutCards];
-    updatedWorkoutCards.splice(index, 1); // Remove the workout card at the specified index
+    updatedWorkoutCards.splice(index, 1);
     setWorkoutCards(updatedWorkoutCards);
   };
 
@@ -74,13 +77,17 @@ const AddWorkout = () => {
     setWorkoutCards(updatedWorkoutCards);
   };
 
+  const handleDateClick = date => {
+    setSelectedDate(date);
+  };
+
   return (
-    <div className="container mx-auto p-4">
-      <div className="bg-white p-6 rounded shadow-md">
-        <h2 className="text-2xl font-bold text-black mb-4 ">Add Workout</h2>
+    <div className="container mx-auto p-4 flex flex-col lg:flex-row space-x-4">
+      <div className="bg-white p-6 rounded shadow-md flex-1 text-black">
+        <h2 className="text-2xl font-bold text-black mb-4">Add Workout</h2>
         <div className="mb-4">
           <label htmlFor="muscleGroup" className="block text-gray-700 mb-2">Muscle Group</label>
-          <input 
+          <input
             type="text"
             id="muscleGroup"
             className="w-full p-2 border rounded text-gray-900"
@@ -91,7 +98,7 @@ const AddWorkout = () => {
         
         <div className="mb-4">
           <label htmlFor="workout" className="block text-gray-700 mb-2">Workout Name</label>
-          <input 
+          <input
             type="text"
             id="workout"
             className="w-full p-2 border rounded text-gray-900"
@@ -150,17 +157,22 @@ const AddWorkout = () => {
             Add Workout
           </button>
         </div>
+        <div className="mt-6">
+          <h2 className="text-2xl font-bold mb-4">Workout Cards</h2>
+          <WorkoutCardContainer
+            workoutCards={workoutCards}
+            onUpdate={handleUpdateWorkout}
+            onDelete={handleDeleteWorkout}
+          />
+        </div>
       </div>
-      <div className="mt-6">
-        <h2 className="text-2xl font-bold mb-4">Workout Cards</h2>
-        <WorkoutCardContainer
-          workoutCards={workoutCards}
-          onUpdate={handleUpdateWorkout}
-          onDelete={handleDeleteWorkout}
-        />
+      <div className="flex-1">
+        <Calendar workoutData={workoutCards} onDateClick={handleDateClick} />
+        <WorkoutLog date={selectedDate} workouts={workoutCards} />
       </div>
     </div>
   );
 };
 
 export default AddWorkout;
+
