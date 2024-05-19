@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import WorkoutCard from "./cards/WorkoutCard";
+import React, { useState, useEffect } from "react";
 import WorkoutCardContainer from "./WorkoutCardContainer";
 
 const AddWorkout = () => {
   const [workouts, setWorkouts] = useState([]);
+  const [selectedMuscleGroup, setSelectedMuscleGroup] = useState("");
   const [selectedWorkout, setSelectedWorkout] = useState("");
-  const [sets, setSets] = useState([""]);
+  const [sets, setSets] = useState(["1"]);
   const [reps, setReps] = useState([""]);
   const [weights, setWeights] = useState([""]);
   const [workoutCards, setWorkoutCards] = useState([]);
@@ -44,7 +44,8 @@ const AddWorkout = () => {
   };
 
   const addSet = () => {
-    setSets([...sets, ""]);
+    const nextSetNumber = sets.length + 1;
+    setSets([...sets, nextSetNumber.toString()]);
     setReps([...reps, ""]);
     setWeights([...weights, ""]);
   };
@@ -55,39 +56,55 @@ const AddWorkout = () => {
       sets,
       reps,
       weights,
+      muscleGroup: selectedMuscleGroup // Include muscle group in the workout object
     };
     setWorkoutCards([...workoutCards, newWorkout]);
     // Clear the form fields
+    setSelectedMuscleGroup("");
     setSelectedWorkout("");
-    setSets([""]);
+    setSets(["1"]);
     setReps([""]);
     setWeights([""]);
+  };
+
+  const handleDeleteWorkout = (index) => {
+    const updatedWorkoutCards = [...workoutCards];
+    updatedWorkoutCards.splice(index, 1); // Remove the workout card at the specified index
+    setWorkoutCards(updatedWorkoutCards);
+  };
+
+  const handleUpdateWorkout = (index, updatedWorkout) => {
+    const updatedWorkoutCards = [...workoutCards];
+    updatedWorkoutCards[index] = updatedWorkout;
+    setWorkoutCards(updatedWorkoutCards);
   };
 
   return (
     <div className="container mx-auto p-4">
       <div className="bg-white p-6 rounded shadow-md">
-        <h2 className="text-2xl font-bold text-black mb-4">Add Workout</h2>
+        <h2 className="text-2xl font-bold text-black mb-4 ">Add Workout</h2>
         <div className="mb-4">
-          <label htmlFor="workout" className="block text-black mb-2">
-            Select Workout
-          </label>
-          <select
+          <label htmlFor="muscleGroup" className="block text-gray-700 mb-2">Muscle Group</label>
+          <input 
+            type="text"
+            id="muscleGroup"
+            className="w-full p-2 border rounded text-gray-900"
+            value={selectedMuscleGroup}
+            onChange={(e) => setSelectedMuscleGroup(e.target.value)}
+          />
+        </div>
+        
+        <div className="mb-4">
+          <label htmlFor="workout" className="block text-gray-700 mb-2">Workout Name</label>
+          <input 
+            type="text"
             id="workout"
-            className="w-full text-black p-2 border rounded"
+            className="w-full p-2 border rounded text-gray-900"
             value={selectedWorkout}
             onChange={(e) => setSelectedWorkout(e.target.value)}
-          >
-            <option value="" disabled>
-              Select a workout
-            </option>
-            {workouts.map((workout) => (
-              <option key={workout.id} value={workout.name}>
-                {workout.name}
-              </option>
-            ))}
-          </select>
+          />
         </div>
+
         {sets.map((set, index) => (
           <div key={index} className="mb-4">
             <div className="flex space-x-4">
@@ -156,7 +173,11 @@ const AddWorkout = () => {
       </div>
       <div className="mt-6">
         <h2 className="text-2xl font-bold mb-4">Workout Cards</h2>
-        <WorkoutCardContainer workoutCards={workoutCards} />
+        <WorkoutCardContainer
+          workoutCards={workoutCards}
+          onUpdate={handleUpdateWorkout}
+          onDelete={handleDeleteWorkout}
+        />
       </div>
     </div>
   );
