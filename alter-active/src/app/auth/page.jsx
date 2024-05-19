@@ -12,8 +12,6 @@ export default function AuthPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("email -->", email);
-    console.log("password -->", password);
 
     if (isLogin) {
       const res = await signIn("credentials", {
