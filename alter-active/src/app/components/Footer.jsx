@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Link from "next/link";
 
 function Footer() {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -40,7 +41,7 @@ function Footer() {
             <ul className="flex flex-wrap list-none md:justify-end justify-center">
               <li>
                 <a
-                  // href="https://www.creative-tim.com?ref=npr-footeradmin" Change this
+                  href="/contact"
                   target="_blank"
                   className="text-black hover:text-blueGray-900 text-sm font-semibold block py-1 px-3"
                 >
@@ -49,7 +50,7 @@ function Footer() {
               </li>
               <li>
                 <a
-                  // href="https://www.creative-tim.com/presentation?ref=npr-footeradmin" change this
+                  href="/about"
                   target="_blank"
                   className="text-black hover:text-blueGray-900 text-sm font-semibold block py-1 px-3"
                 >
