@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import WorkoutCardContainer from "./WorkoutCardContainer";
+import Calendar from "./Calendar";
+import WorkoutLog from "./WorkoutLog";
 
 const AddWorkout = () => {
   const [workouts, setWorkouts] = useState([]);
@@ -9,19 +11,14 @@ const AddWorkout = () => {
   const [reps, setReps] = useState([""]);
   const [weights, setWeights] = useState([""]);
   const [workoutCards, setWorkoutCards] = useState([]);
-
-  const fetchWorkouts = async () => {
-    const res = await fetch("/api/workouts/fetch");
-    const data = await res.json();
-
-    if (res.ok) {
-      setWorkouts(data);
-    } else {
-      alert("Unable to fetch workouts.");
-    }
-  };
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   useEffect(() => {
+    const fetchWorkouts = async () => {
+      const res = await fetch("/api/workouts");
+      const data = await res.json();
+      setWorkouts(data || []);
+    };
     fetchWorkouts();
   }, []);
 
@@ -50,16 +47,25 @@ const AddWorkout = () => {
     setWeights([...weights, ""]);
   };
 
+  const deleteSet = (index) => {
+    const newSets = sets.filter((_, i) => i !== index);
+    const newReps = reps.filter((_, i) => i !== index);
+    const newWeights = weights.filter((_, i) => i !== index);
+    setSets(newSets.map((set, idx) => (idx < index ? set : (idx + 1).toString())));
+    setReps(newReps);
+    setWeights(newWeights);
+  };
+
   const handleAddWorkout = () => {
     const newWorkout = {
       workout: selectedWorkout,
       sets,
       reps,
       weights,
-      muscleGroup: selectedMuscleGroup // Include muscle group in the workout object
+      muscleGroup: selectedMuscleGroup,
+      date: selectedDate.toISOString().split('T')[0],
     };
     setWorkoutCards([...workoutCards, newWorkout]);
-    // Clear the form fields
     setSelectedMuscleGroup("");
     setSelectedWorkout("");
     setSets(["1"]);
@@ -69,7 +75,7 @@ const AddWorkout = () => {
 
   const handleDeleteWorkout = (index) => {
     const updatedWorkoutCards = [...workoutCards];
-    updatedWorkoutCards.splice(index, 1); // Remove the workout card at the specified index
+    updatedWorkoutCards.splice(index, 1);
     setWorkoutCards(updatedWorkoutCards);
   };
 
@@ -79,13 +85,17 @@ const AddWorkout = () => {
     setWorkoutCards(updatedWorkoutCards);
   };
 
+  const handleDateClick = (date) => {
+    setSelectedDate(date);
+  };
+
   return (
-    <div className="container mx-auto p-4">
-      <div className="bg-white p-6 rounded shadow-md">
-        <h2 className="text-2xl font-bold text-black mb-4 ">Add Workout</h2>
+    <div className="container mx-auto p-4 flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4">
+      <div className="bg-white p-6 rounded shadow-md flex-1 text-black">
+        <h2 className="text-2xl font-bold text-black mb-4">Add Workout</h2>
         <div className="mb-4">
           <label htmlFor="muscleGroup" className="block text-gray-700 mb-2">Muscle Group</label>
-          <input 
+          <input
             type="text"
             id="muscleGroup"
             className="w-full p-2 border rounded text-gray-900"
@@ -93,10 +103,10 @@ const AddWorkout = () => {
             onChange={(e) => setSelectedMuscleGroup(e.target.value)}
           />
         </div>
-        
+
         <div className="mb-4">
           <label htmlFor="workout" className="block text-gray-700 mb-2">Workout Name</label>
-          <input 
+          <input
             type="text"
             id="workout"
             className="w-full p-2 border rounded text-gray-900"
@@ -107,14 +117,9 @@ const AddWorkout = () => {
 
         {sets.map((set, index) => (
           <div key={index} className="mb-4">
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 items-end">
               <div className="flex-1">
-                <label
-                  htmlFor={`sets-${index}`}
-                  className="block text-gray-700 mb-2"
-                >
-                  Sets
-                </label>
+                <label htmlFor={`sets-${index}`} className="block text-gray-700 mb-2">{index === 0 ? "Set" : `Set ${index + 1}`}</label>
                 <input
                   type="number"
                   id={`sets-${index}`}
@@ -153,6 +158,14 @@ const AddWorkout = () => {
                   onChange={(e) => handleWeightChange(index, e.target.value)}
                 />
               </div>
+              {index > 0 && (
+                <button
+                  className="bg-red-500 text-white p-2 rounded hover:bg-red-600"
+                  onClick={() => deleteSet(index)}
+                >
+                  Delete
+                </button>
+              )}
             </div>
           </div>
         ))}
@@ -170,17 +183,22 @@ const AddWorkout = () => {
             Add Workout
           </button>
         </div>
+        <div className="mt-6">
+          <h2 className="text-2xl font-bold mb-4">Workout Cards</h2>
+          <WorkoutCardContainer
+            workoutCards={workoutCards}
+            onUpdate={handleUpdateWorkout}
+            onDelete={handleDeleteWorkout}
+          />
+        </div>
       </div>
-      <div className="mt-6">
-        <h2 className="text-2xl font-bold mb-4">Workout Cards</h2>
-        <WorkoutCardContainer
-          workoutCards={workoutCards}
-          onUpdate={handleUpdateWorkout}
-          onDelete={handleDeleteWorkout}
-        />
+      <div className="flex-1">
+        <Calendar workoutData={workoutCards} onDateClick={handleDateClick} />
+        <WorkoutLog date={selectedDate} workouts={workoutCards} />
       </div>
     </div>
   );
 };
 
 export default AddWorkout;
+

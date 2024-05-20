@@ -1,8 +1,6 @@
 "use client";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Footer from "./components/Footer";
-import { MegaMenuDefault } from "./components/Navbar";
 import { ThemeProvider } from "@material-tailwind/react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,8 +17,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <SessionProvider>
           <ThemeProvider>
-            <main>{children}</main>
-            <Footer />
+            <main>
+          {children}
+          </main>
           </ThemeProvider>
         </SessionProvider>
       </body>

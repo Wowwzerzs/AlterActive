@@ -1,5 +1,5 @@
-"use client"
 import React from "react";
+import Link from "next/link";
 import {
   Navbar,
   Collapse,
@@ -30,11 +30,11 @@ import {
 } from "@heroicons/react/24/solid";
  
 const navListMenuItems = [
-  
   {
     title: "About Us",
     description: "Meet and learn about our dedication",
     icon: UserGroupIcon,
+    link: "/about",
   },
   {
     title: "Support",
@@ -45,48 +45,40 @@ const navListMenuItems = [
     title: "Contact Us",
     description: "Find the perfect solution for your needs.",
     icon: PhoneIcon,
+    link: "/contact",
   },
   {
     title: "News",
     description: "Read insightful articles, tips, and expert opinions.",
     icon: NewspaperIcon,
   },
- 
 ];
  
 function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  const renderItems = navListMenuItems.map(
-    ({ icon, title, description }, key) => (
-      <a href="#" key={key}>
-        <MenuItem className="flex items-center gap-3 rounded-lg">
-          <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
-            {" "}
-            {React.createElement(icon, {
-              strokeWidth: 2,
-              className: "h-6 text-gray-900 w-6",
-            })}
-          </div>
-          <div>
-            <Typography
-              variant="h6"
-              color="blue-gray"
-              className="flex items-center text-sm font-bold"
-            >
-              {title}
-            </Typography>
-            <Typography
-              variant="paragraph"
-              className="text-xs !font-medium text-blue-gray-500"
-            >
-              {description}
-            </Typography>
-          </div>
-        </MenuItem>
-      </a>
-    ),
-  );
+  const renderItems = navListMenuItems.map(({ icon: Icon, title, description, link }, key) => (
+    link ? (
+      <Link href={link} key={key}>
+        <div> 
+          <MenuItem className="flex items-center gap-3 rounded-lg">
+            <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2">
+              {Icon && <Icon strokeWidth={2} className="h-6 text-gray-900 w-6" />}
+            </div>
+            <div>
+              <Typography variant="h6" color="blue-gray" className="flex items-center text-sm font-bold">
+                {title}
+              </Typography>
+              <Typography variant="paragraph" className="text-xs !font-medium text-blue-gray-500">
+                {description}
+              </Typography>
+            </div>
+          </MenuItem>
+        </div>
+      </Link>
+    ) : null
+  ));
+  
  
   return (
     <React.Fragment>
@@ -132,12 +124,21 @@ function NavListMenu() {
   );
 }
  
+function handleLogout() {
+  // Implement your logout logic here, such as clearing local storage, redirecting to the login page, etc.
+  // For demonstration purposes, let's assume we're just logging out the user by clearing local storage
+  localStorage.clear(); // Clearing all stored data
+
+  // Redirecting to the login page (you may need to adjust this based on your routing setup)
+  window.location.href = "/auth";
+}
+
 function NavList() {
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
       <Typography
-        as="a"
-        href="#"
+        as={Link}
+        href="/dashboard"
         variant="small"
         color="blue-gray"
         className="font-medium"
@@ -145,7 +146,7 @@ function NavList() {
         <ListItem className="flex items-center gap-2 py-2 pr-4">Dashboard</ListItem>
       </Typography>
       <NavListMenu />
-      <Typography
+      {/* <Typography
         as="a"
         href="#"
         variant="small"
@@ -155,6 +156,21 @@ function NavList() {
         <ListItem className="flex items-center gap-2 py-2 pr-4">
           Contact Us
         </ListItem>
+      </Typography> */}
+      <Typography
+        as="a"
+        href="#"
+        variant="small"
+        color="blue-gray"
+        className="font-medium"
+        onClick={handleLogout} // Attach the handleLogout function to onClick event
+      >
+        <img
+          width="48"
+          height="48"
+          src="https://img.icons8.com/pulsar-color/48/logout-rounded-up.png"
+          alt="logout-rounded-up"
+        />
       </Typography>
     </List>
   );
@@ -174,8 +190,8 @@ export function MegaMenuDefault() {
     <Navbar className="mx-auto max-w-screen-xl px-4 py-2">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography
-          as="a"
-          href="#"
+          as={Link}
+          href="/dashboard"
           variant="h6"
           className="mr-4 cursor-pointer py-1.5 lg:ml-2"
         >
@@ -203,4 +219,3 @@ export function MegaMenuDefault() {
     </Navbar>
   );
 }
-
