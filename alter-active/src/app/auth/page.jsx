@@ -55,7 +55,7 @@ export default function AuthPage() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="bg-white p-8 rounded-md shadow-lg transform transition-all duration-500">
+      <div className="bg-white p-8 rounded-md shadow-lg transform transition-all duration-500 w-full max-w-md mx-4 md:mx-auto">
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-4 text-gray-800">
             {isLogin ? "Log In" : "Sign Up"}
@@ -63,12 +63,7 @@ export default function AuthPage() {
         </div>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Email
-            </label>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
             <input
               type="email"
               id="email"
@@ -79,12 +74,7 @@ export default function AuthPage() {
             />
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Password
-            </label>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
             <input
               type="password"
               id="password"
@@ -101,16 +91,13 @@ export default function AuthPage() {
             {isLogin ? "Log In" : "Sign Up"}
           </button>
         </form>
-        <p className="mt-4 text-sm">
-          {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
-          <button
-            onClick={handleToggleMode}
-            className="text-indigo-500 hover:underline"
-          >
-            {isLogin ? "Sign up" : "Log in"}
+        <p className="mt-4 text-sm text-gray-700">
+          {isLogin ? "Don't have an account?" : "Already have an account?"}{' '}
+          <button onClick={handleToggleMode} className="text-indigo-500 hover:underline">
+            {isLogin ? 'Sign up' : 'Log in'}
           </button>
         </p>
       </div>
     </motion.div>
   );
-}
+};
