@@ -23,10 +23,11 @@ const Calendar = ({ workoutData, onDateClick }) => {
   };
 
   return (
-    <div className="mx-auto bg-white p-6 rounded shadow-md text-black">
+    <div className="mx-auto bg-white p-6 rounded shadow-md text-black flex justify-center">
       <ReactCalendar
         tileContent={tileContent}
         onClickDay={onDateClick}
+        className="m-auto"
       />
     </div>
   );

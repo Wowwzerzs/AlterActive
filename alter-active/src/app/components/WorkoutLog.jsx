@@ -6,14 +6,14 @@ const WorkoutLog = ({ date, workouts }) => {
   const workoutsForDate = (workouts || []).filter(workout => workout.date === dateString);
 
   return (
-    <div className="bg-white p-6 rounded shadow-md mt-4 text-black">
+    <div className="bg-white p-6 rounded-lg shadow-md mt-4 text-black">
       <h2 className="text-2xl font-bold text-black mb-4">
         Workouts for {dateString}
       </h2>
       {workoutsForDate.length > 0 ? (
         workoutsForDate.map((workout, index) => (
           <div key={index} className="mb-4">
-            <h3 className="text-xl font-semibold text-gray-900">{workout.worout}</h3>
+            <h3 className="text-xl font-semibold text-gray-900">{workout.workout}</h3>
             <p>Muscle Group: {workout.muscleGroup}</p>
             <p>Sets: {workout.sets.join(', ')}</p>
             <p>Reps: {workout.reps.join(', ')}</p>
@@ -28,4 +28,3 @@ const WorkoutLog = ({ date, workouts }) => {
 };
 
 export default WorkoutLog;
-

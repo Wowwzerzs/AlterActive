@@ -41,27 +41,27 @@ const WorkoutCard = ({ workout, sets, reps, weights, onUpdate, onDelete }) => {
       {isEditing ? (
         <div className="mt-3">
           {editedSets.map((set, index) => (
-            <div key={index} className="flex space-x-2 mb-2">
+            <div key={index} className="flex flex-col sm:flex-row sm:space-x-2 mb-2">
               <input
                 type="text"
                 value={editedSets[index]}
-                className="w-16 p-1 border rounded text-gray-900"
+                className="w-full sm:w-1/3 p-1 border rounded text-gray-900 mb-2 sm:mb-0"
                 onChange={(e) => handleSetChange(index, e.target.value)}
               />
               <input
                 type="text"
                 value={editedReps[index]}
-                className="w-16 p-1 border rounded text-gray-900"
+                className="w-full sm:w-1/3 p-1 border rounded text-gray-900 mb-2 sm:mb-0"
                 onChange={(e) => handleRepChange(index, e.target.value)}
               />
               <input
                 type="text"
                 value={editedWeights[index]}
-                className="w-16 p-1 border rounded text-gray-900"
+                className="w-full sm:w-1/3 p-1 border rounded text-gray-900"
                 onChange={(e) => handleWeightChange(index, e.target.value)}
               />
               <button
-                className="text-red-500 hover:text-red-700 font-bold"
+                className="text-red-500 hover:text-red-700 font-bold ml-2"
                 onClick={() => {
                   const updatedSets = [...editedSets];
                   updatedSets.splice(index, 1);
@@ -81,7 +81,7 @@ const WorkoutCard = ({ workout, sets, reps, weights, onUpdate, onDelete }) => {
             </div>
           ))}
           <button
-            className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+            className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 mt-2"
             onClick={handleSave}
           >
             Save
@@ -108,7 +108,7 @@ const WorkoutCard = ({ workout, sets, reps, weights, onUpdate, onDelete }) => {
             </div>
           ))}
           <button
-            className="text-red-500 hover:text-red-700 font-bold"
+            className="text-red-500 hover:text-red-700 font-bold mt-2"
             onClick={onDelete}
           >
             Delete Card

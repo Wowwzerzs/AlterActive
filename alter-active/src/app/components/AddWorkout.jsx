@@ -82,7 +82,7 @@ const AddWorkout = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 flex flex-col lg:flex-row space-x-4">
+    <div className="container mx-auto p-4 flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4">
       <div className="bg-white p-6 rounded shadow-md flex-1 text-black">
         <h2 className="text-2xl font-bold text-black mb-4">Add Workout</h2>
         <div className="mb-4">
@@ -175,4 +175,3 @@ const AddWorkout = () => {
 };
 
 export default AddWorkout;
-
