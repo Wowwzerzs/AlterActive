@@ -51,7 +51,7 @@ const AddWorkout = () => {
     const newSets = sets.filter((_, i) => i !== index);
     const newReps = reps.filter((_, i) => i !== index);
     const newWeights = weights.filter((_, i) => i !== index);
-    setSets(newSets);
+    setSets(newSets.map((set, idx) => (idx < index ? set : (idx + 1).toString())));
     setReps(newReps);
     setWeights(newWeights);
   };
@@ -119,7 +119,7 @@ const AddWorkout = () => {
           <div key={index} className="mb-4">
             <div className="flex space-x-4 items-end">
               <div className="flex-1">
-                <label htmlFor={`sets-${index}`} className="block text-gray-700 mb-2">Set {index + 1}</label>
+                <label htmlFor={`sets-${index}`} className="block text-gray-700 mb-2">{index === 0 ? "Set" : `Set ${index + 1}`}</label>
                 <input
                   type="number"
                   id={`sets-${index}`}
@@ -179,15 +179,16 @@ const AddWorkout = () => {
             workoutCards={workoutCards}
             onUpdate={handleUpdateWorkout}
             onDelete={handleDeleteWorkout}
-            />
-            </div>
-            </div>
-            <div className="flex-1">
-            <Calendar workoutData={workoutCards} onDateClick={handleDateClick} />
-            <WorkoutLog date={selectedDate} workouts={workoutCards} />
-            </div>
-            </div>
-            );
-            };
-            
-            export default AddWorkout;
+          />
+        </div>
+      </div>
+      <div className="flex-1">
+        <Calendar workoutData={workoutCards} onDateClick={handleDateClick} />
+        <WorkoutLog date={selectedDate} workouts={workoutCards} />
+      </div>
+    </div>
+  );
+};
+
+export default AddWorkout;
+
