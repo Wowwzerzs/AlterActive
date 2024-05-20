@@ -13,8 +13,7 @@ const WorkoutCard = ({ workout, sets, reps, weights, onUpdate, onDelete }) => {
       reps: editedReps,
       weights: editedWeights,
     };
-    onUpdate(updatedWorkout);
-    setIsEditing(false);
+    onUpdate(updatedWorkout, () => setIsEditing(false)); // Move setIsEditing inside the callback of onUpdate
   };
 
   const handleSetChange = (index, value) => {

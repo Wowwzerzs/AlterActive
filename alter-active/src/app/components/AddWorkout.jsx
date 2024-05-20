@@ -179,15 +179,15 @@ const AddWorkout = () => {
             workoutCards={workoutCards}
             onUpdate={handleUpdateWorkout}
             onDelete={handleDeleteWorkout}
-          />
-        </div>
-      </div>
-      <div className="flex-1">
-        <Calendar workoutData={workoutCards} onDateClick={handleDateClick} />
-        <WorkoutLog date={selectedDate} workouts={workoutCards} />
-      </div>
-    </div>
-  );
-};
-
-export default AddWorkout;
+            />
+            </div>
+            </div>
+            <div className="flex-1">
+            <Calendar workoutData={workoutCards} onDateClick={handleDateClick} />
+            <WorkoutLog date={selectedDate} workouts={workoutCards} />
+            </div>
+            </div>
+            );
+            };
+            
+            export default AddWorkout;
