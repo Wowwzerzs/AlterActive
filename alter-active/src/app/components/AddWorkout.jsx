@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import WorkoutCardContainer from "./WorkoutCardContainer";
 import Calendar from "./Calendar";
 import WorkoutLog from "./WorkoutLog";
-import WorkoutCard from "./cards/WorkoutCard";
 
 const AddWorkout = () => {
   const [workouts, setWorkouts] = useState([]);
@@ -48,6 +47,15 @@ const AddWorkout = () => {
     setWeights([...weights, ""]);
   };
 
+  const deleteSet = (index) => {
+    const newSets = sets.filter((_, i) => i !== index);
+    const newReps = reps.filter((_, i) => i !== index);
+    const newWeights = weights.filter((_, i) => i !== index);
+    setSets(newSets);
+    setReps(newReps);
+    setWeights(newWeights);
+  };
+
   const handleAddWorkout = () => {
     const newWorkout = {
       workout: selectedWorkout,
@@ -77,7 +85,7 @@ const AddWorkout = () => {
     setWorkoutCards(updatedWorkoutCards);
   };
 
-  const handleDateClick = date => {
+  const handleDateClick = (date) => {
     setSelectedDate(date);
   };
 
@@ -95,7 +103,7 @@ const AddWorkout = () => {
             onChange={(e) => setSelectedMuscleGroup(e.target.value)}
           />
         </div>
-        
+
         <div className="mb-4">
           <label htmlFor="workout" className="block text-gray-700 mb-2">Workout Name</label>
           <input
@@ -109,9 +117,9 @@ const AddWorkout = () => {
 
         {sets.map((set, index) => (
           <div key={index} className="mb-4">
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 items-end">
               <div className="flex-1">
-                <label htmlFor={`sets-${index}`} className="block text-gray-700 mb-2">Sets</label>
+                <label htmlFor={`sets-${index}`} className="block text-gray-700 mb-2">Set {index + 1}</label>
                 <input
                   type="number"
                   id={`sets-${index}`}
@@ -140,6 +148,14 @@ const AddWorkout = () => {
                   onChange={(e) => handleWeightChange(index, e.target.value)}
                 />
               </div>
+              {index > 0 && (
+                <button
+                  className="bg-red-500 text-white p-2 rounded hover:bg-red-600"
+                  onClick={() => deleteSet(index)}
+                >
+                  Delete
+                </button>
+              )}
             </div>
           </div>
         ))}
